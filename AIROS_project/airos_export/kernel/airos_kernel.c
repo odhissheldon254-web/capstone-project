@@ -9,7 +9,6 @@
    ───────────────────────────────────────────── */
 
 static KernelCB kernel;
-static uint8_t  task_stacks_used = 0;
 
 /* ── Kernel Init ── */
 void airos_init(void) {
