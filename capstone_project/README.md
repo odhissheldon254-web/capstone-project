@@ -8,7 +8,7 @@
 
 ## 📌 Project Overview
 
-AIROS is a **simulated Real-Time Operating System (RTOS) kernel** enhanced with a **Q-Learning reinforcement learning scheduler**. The system dynamically adapts task priorities at runtime based on deadline history, urgency, and CPU utilisation — outperforming traditional static schedulers in mixed-criticality real-time workloads.
+AIROS is a **simulated Real-Time Operating System (RTOS) kernel** enhanced with a **Q-Learning reinforcement learning scheduler**. The system dynamically adapts task priorities at runtime based on deadline history, urgency, and CPU utilisation, then compares the learned policy against traditional schedulers in mixed-criticality real-time workloads.
 
 This project was developed as a capstone to demonstrate the feasibility of **applying reinforcement learning to OS-level scheduling** in resource-constrained embedded environments (ARM Cortex-M class targets).
 
@@ -72,7 +72,11 @@ Simulation over **5,000 ticks** with **8 heterogeneous tasks** (hard RT, soft RT
 | Round Robin | 123 | 4,939 | 2.43% | — |
 | **AIROS RL-Adaptive** | **242** | **4,919** | **4.69%** | **0.3883** |
 
-> ⚠️ The RL scheduler shows higher raw miss count due to early-phase exploration. It **converges at tick 501** (miss rate < 5%) and accumulates positive reward (+0.39), demonstrating that the agent is learning a policy that balances deadline adherence with CPU efficiency.
+> ⚠️ In the current benchmark, the RL scheduler converges at tick 501 and accumulates positive reward (+0.39), but it does **not** beat the Fixed Priority or Round Robin baselines on raw deadline miss rate. The result should be interpreted as evidence that the agent is learning a reward-driven policy, not yet as proof of superior deadline performance.
+
+### Interpretation
+
+The RL scheduler is evaluated while it is still exploring. That exploration can temporarily assign poor task priorities, which increases deadline misses during the same run used for measurement. For a stronger evaluation, future work should separate training from measurement, tune the reward function, and compare the learned policy after convergence.
 
 ### Task Workload Profile
 

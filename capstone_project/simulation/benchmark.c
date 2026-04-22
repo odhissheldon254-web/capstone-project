@@ -276,8 +276,9 @@ int main(void) {
         printf("\n[RL] Scheduler converged at tick: %u (miss rate < 5%%)\n",
                results[2].convergence_tick);
 
-    float improvement = results[0].miss_rate - results[2].miss_rate;
-    printf("[RL] Deadline miss reduction vs Fixed Priority: %.2f%%\n\n", improvement);
+    float miss_rate_delta = results[2].miss_rate - results[0].miss_rate;
+    printf("[RL] Deadline miss rate delta vs Fixed Priority: %+.2f percentage points\n\n",
+           miss_rate_delta);
 
     export_csv(results);
     return 0;
